@@ -1,0 +1,41 @@
+\documentclass{article}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage[
+	style=phys, articletitle=false, biblabel=brackets, chaptertitle=false, pageranges=false, url=true
+]{biblatex}
+
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{siunitx}
+
+\title{Notes on non-equilibrium Nam}
+
+\addbibresource{./bibliography.bib}
+
+\graphicspath{{./figures/}}
+
+
+\begin{document}
+
+\maketitle
+
+Our goal is to extend the Nam expression to incorporate non-equilibrium effects for arbitrary wave-vector.
+
+\section{Derivation}
+The critical expression for our purposes is equation 4.2 in Nam\cite{Nam1967}:
+\begin{equation}
+	I = \int \frac{\dd{\epsilon_k}}{2 \pi i} \int_0 \dd{\omega} f(\omega) \Tr{\mathrm{Greens\ function}}
+\end{equation}
+For this, Nam draws contours around the poles of the Green's function component, and does the integral.
+
+From~\cite{Gao2008}, we can model the non-equilibrium components by replacing the Fermi distribution function $f(\omega)$ with $f(\omega - \mu)$, where $\mu$ represents the chemical potential of quasiparticles (which, using expressions in Gao, can be derived from a fixed quasiparticle density).
+The manipulation of the Green's functions Nam carries out remain valid, and it remains only to actually evaluate those integrals.
+
+\printbibliography
+
+\end{document}
