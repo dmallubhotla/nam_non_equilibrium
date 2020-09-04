@@ -24,17 +24,37 @@
 
 \maketitle
 
-Our goal is to extend the Nam expression to incorporate non-equilibrium effects for arbitrary wave-vector.
+Our goal is to extend the Nam expression in~\cite{Nam1967} to incorporate non-equilibrium effects for arbitrary wave-vector.
 
-\section{Derivation}
-The critical expression for our purposes is equation 4.2 in Nam\cite{Nam1967}:
+From~\cite{Gao2008}, we can model this by adding some fixed chemical potential $\mu$.
+This has the effect of shifting the quasiparticle energy scale $\epsilon_k$ (using Nam's notation) to some new value $\epsilon_k^\ast \equiv \epsilon_k - \mu$, giving us a Green's function (cf. Nam's eq 3.19)
+\begin{align}
+	G(k) = \left\{ Z(k) \left[ k_0 - \Delta(k) \tau_1 \right] - \epsilon_k^\ast \tau_3 \right\}
+\end{align}
+
+The key here is that this is only going to have the effect of shifting the reference quasiparticle energy.
+Following the steps through Nam's section 4, we should end up finding the correct expressions.
+
+I tried initially modifying Nam's equation 4.1:
 \begin{equation}
-	I = \int \frac{\dd{\epsilon_k}}{2 \pi i} \int_c \dd{\omega} f(\omega) \Tr{\mathrm{Greens\ function}}
+	K_{\mu\nu} = \frac{e^2}{\pi^2}\int \dd{A} \int \frac{\dd{(\epsilon^\ast - \mu)}}{\abs{v}} \ldots
 \end{equation}
-For this, Nam draws contours around the poles of the Green's function component, and does the integral.
+This is a little bit difficult to conceptualise and execute, I believe.
+Slightly more effective was just working through section 4 as-is.
 
-From~\cite{Gao2008}, we can model the non-equilibrium components by replacing the Fermi distribution function $f(\omega)$ with $f(\omega - \mu)$, where $\mu$ represents the chemical potential of quasiparticles (which, using expressions in Gao, can be derived from a fixed quasiparticle density).
-The manipulation of the Green's functions Nam carries out remain valid, and it remains only to actually evaluate those integrals.
+The result I ended up with a couple of times was Nam's equation 4.18, with modifications as follows:
+\begin{align}
+	\epsilon_{02} &\rightarrow \epsilon_{02} - \mu \\
+	\epsilon_{01} &\rightarrow \epsilon_{01} - \mu \\
+	\epsilon_{02} + \epsilon_{01} &\rightarrow \epsilon_{02} + \epsilon_{01} + 2 \mu \\
+	\epsilon_{02} - \epsilon_{01} &\rightarrow \epsilon_{02} - \epsilon_{01}
+\end{align}
+
+My two big problems are as follows:
+\begin{enumerate}
+	\item I am still trying to get a good handle on whether there's a clean way to think about the additional chemical potential as a shift in the reference energy, because an argument of that style would feel far more concrete and simple for modifying the resulting response function
+	\item The argument for the densities of states in Nam's section 3 (eq 3.17, 3.18) essentially make the assumption that we are close to the Fermi energy. I'm still not entirely sure how to actually make this work with the chemical potential assumption. Nam assumes for example that $\abs{k}$ is unimportant because we are close to the Fermi potential, but I think that if I'm thinking about this correctly we would care about a shell around the Fermi energy of width $\mu$, and different ways of modelling that seem inconsistent.
+\end{enumerate}
 
 \printbibliography
 
