@@ -13,18 +13,124 @@
 \usepackage{todonotes}
 \usepackage{siunitx}
 
+\usepackage[compat=1.0.0]{tikz-feynman}
+
+\usepackage{cleveref}
+
 \title{Notes on non-equilibrium Nam}
 
 \addbibresource{./bibliography.bib}
 
 \graphicspath{{./figures/}}
 
+\newcommand{\pf}{p_{\mathrm{F}}}
+\newcommand{\vf}{p_{\mathrm{F}}}
+\newcommand{\corr}{\mu^\ast}
+\DeclareMathOperator{\sgn}{sgn}
 
 \begin{document}
 
 \maketitle
 
-We will follow the derivation for the gap equation in AGD, in order to ensure that we can reproduce the Owen-Scalapino derivation~\cite{OwenScalapino}.
+\begin{figure}[htp]
+	\centering
+	\feynmandiagram [large, horizontal=a to b] {
+		i1 -- [plain, momentum'={$p_1, \alpha$}] a,
+		b -- [plain, momentum'={$p_3, \gamma$}] f3,
+		i2 -- [plain, momentum={$p_2, \beta$}] a,
+		b -- [plain, momentum={$p_4, \delta$}] f4,
+		a -- [plain, quarter left, momentum={$p_1 + p_2 - k, \xi$}] b -- [plain, quarter left, rmomentum={$k, \sigma$}] a,
+	};
+	\caption{Test Feynman diagram} \label{fig:diagram}
+\end{figure}
+
+We will follow the derivation for the gap equation in AGD\cite{AGD}, in order to ensure that we can reproduce the Owen-Scalapino derivation~\cite{OwenScalapino}.
+Unlike the Owen-Scalapino paper, which largely uses the operator formalism in the BCS paper~\cite{BCS}, I will try to rewrite-this derivation using the diagrammatic formalism in AGD.
+This has the advantage of being more easily to relate to Nam and others (specifically the derivation summarised in the Nam paper~\cite{Nam1967}).
+
+We start by looking at the corrections to the vertex function through the diagram in \cref{fig:diagram}.
+With bare vertex function
+\begin{equation}
+	\Gamma_{\alpha \beta,\gamma \delta}(p_1, p_2; p_3, p_4) = \lambda \left( \delta_{\alpha\gamma} \delta_{\beta\delta} - \delta_{\alpha\delta}\delta_{\beta\gamma} \right),
+\end{equation}
+
+we can write for \cref{fig:diagram}
+\begin{align}
+	& i \lambda^2 \left( \delta_{\alpha\xi} \delta_{\beta\sigma} - \delta_{\alpha\sigma}\delta_{\beta\xi} \right)\left( \delta_{\xi\gamma} \delta_{\sigma\delta} - \delta_{\xi\delta}\delta_{\sigma\gamma} \right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k) \\
+	&= i \lambda^2 \left( \delta_{\alpha\xi} \delta_{\beta\sigma} - \delta_{\alpha\sigma}\delta_{\beta\xi} \right)\left( \delta_{\xi\gamma} \delta_{\sigma\delta} - \delta_{\xi\delta}\delta_{\sigma\gamma} \right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k) \\
+	&= i \lambda^2 \left( \delta_{\alpha\xi} \delta_{\beta\sigma} \delta_{\xi\gamma} \delta_{\sigma\delta} -  \delta_{\alpha\xi} \delta_{\beta\sigma} \delta_{\xi\delta}\delta_{\sigma\gamma} - \delta_{\alpha\sigma}\delta_{\beta\xi} \delta_{\xi\gamma} \delta_{\sigma\delta} + \delta_{\alpha\sigma}\delta_{\beta\xi}  \delta_{\xi\delta}\delta_{\sigma\gamma} \right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k) \\
+	&= i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma} - \delta_{\alpha\delta}\delta_{\beta\gamma}  + \delta_{\alpha\gamma}\delta_{\beta\delta} \right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k) \\
+	&= 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k)
+\end{align}
+
+The numerical factors aren't overly important here;
+AGD actually omit some of these, including the factor of $2$ that emerges when handling the spin functions.
+But it turns out to be unimportant, so the spin factor could also just be written down from what we know the vertex function must carry.
+
+The Green's function here is
+\begin{equation}
+	G(k_0, \vec{k}) = \frac{a}{k_0 - \epsilon(\vec{k}) + \mu + \corr + i \delta s(\vec{k})},
+\end{equation}
+where $s(p) \equiv \sgn(\abs{\vec{p}} - \pf)$ and $\delta \rightarrow 0_{+}$ and $\corr$ is the ``correction factor'' representing the injected quasiparticles introduced by Owen and Scalapino.
+This is a qualitatively different interpretation from theirs, because we are modifying the \emph{poles} of our quasiparticle Green's functions, which represents the additional ease which with they can be excited.
+
+We can now insert this, and see how that affects our result for our diagram:
+\begin{align}
+	&2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} G(k) G(p_1 + p_2 - k) \\
+	&= 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} I,
+\end{align}
+where
+\begin{equation}
+	I = \frac{a}{k_0 - \epsilon(\vec{k}) + \mu + \corr + i \delta s(\vec{k})} \frac{a}{\omega_1 + \omega_2 - k_0 - \epsilon(\vec{k}) + \mu + \corr + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})}
+\end{equation}
+
+Begin with the integral over $k_0$, by collecting terms in each denominator into $\eta_1$ and $\eta_2$ so that
+\begin{align}
+	& 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} \frac{a}{k_0 + \eta_1 + i \delta s(\vec{k})} \frac{a}{- k_0 + \eta_2 + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})} \\
+	&= 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^4} \int \dd{k_0} \frac{a}{k_0 + \eta_1 + i \delta s(\vec{k})} \frac{a}{ - k_0 + \eta_2 + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})} \\
+\end{align}
+
+The $k_0$ integral can be done in closed form;
+if the $s$ functions in each denominator have different sign, the result is zero.
+Otherwise, call their shared sign $\sigma$, which is $1$ if $\abs{\vec{k}} > p_\mathrm{F}$ and $\abs{\vec{p}_1 + \vec{p}_2 - \vec{k}} > p_\mathrm{F}$, and $-1$ if both inequalities are reversed.
+
+Then the result of the $k_0$ integral is
+\begin{align}
+	-\sigma 2 i \pi \frac{a^2}{\eta_1 + \eta_2 + 2 i \delta \sigma},
+\end{align}
+so our diagram becomes
+\begin{align}
+	&= - 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^4} \sigma 2 i \pi \frac{a^2}{\eta_1 + \eta_2 + 2 i \delta \sigma} \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{\eta_1 + \eta_2 + 2 i \delta \sigma} \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{ - \epsilon(\vec{k}) + \mu + \corr + \omega_1 + \omega_2 - \epsilon(\vec{k}) + \mu + \corr + 2 i \delta \sigma} \\
+\end{align}
+
+\section{Nam conductivity}
+As earlier, we use dimensionless variables.
+\begin{align}
+	\xi &= \frac{\omega}{\Delta} \\
+	\xi' &= \frac{\omega'}{\Delta} \\
+	\nu &= \frac{1}{\tau \Delta} \\
+	\kappa &= \frac{q \vf}{\Delta} \\
+	t &= \frac{T}{\Delta} \\
+	\sigma_0 &= \frac{n e^2}{m \Delta}
+\end{align}
+
+From Nam, we have
+\begin{equation}
+	\sigma(\kappa, \xi) = -i \frac{3 \sigma_0}{4} \frac{1}{\xi}\left[\int_{1 - \xi}^{1}\dd{\xi} \tanh(\frac{\xi + \xi' - \mu}{2 t}) I_1 + \int_{1}^{\infty} \dd{\xi'} \left( \tanh(\frac{\xi + \xi' - \mu}{2t}) I_1  - \tanh(\frac{\xi' - \mu}{2t})I_2 \right) \right]
+\end{equation}
+with
+\begin{align}
+	I_1 &= F(\kappa, \Re[\sqrt{(\xi + \xi')^2 - 1} - \sqrt{\xi'^2 - 1}]) (g + 1) \nonumber\\
+	&\quad + F(\kappa, \Re[-\sqrt{(\xi + \xi')^2 - 1} - \sqrt{\xi'^2 - 1}]) (g - 1) \\
+	I_2 &= F(\kappa, \Re[\sqrt{(\xi + \xi')^2 - 1} - \sqrt{\xi'^2 - 1}]) (g + 1) \nonumber\\
+	&\quad + F(\kappa, \Re[\sqrt{(\xi + \xi')^2 - 1} + \sqrt{\xi'^2 - 1}]) (g - 1) \\
+	F(\kappa, E) &= \frac{1}{\kappa} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right]  \\
+	S(\kappa, E) &= \frac{1}{\kappa} \left(E - i \left(\Im[\sqrt{(\xi + \xi')^2 - 1} + \sqrt{\xi'^2 - 1}] + 2 \nu \right) \right) \\
+	g  &= \frac{\xi' \left( \xi + \xi'\right) + 1}{\sqrt{\xi'^2 - 1}\sqrt{(\xi + \xi')^2 - 1}}
+\end{align}
+
 
 \printbibliography
 
