@@ -24,7 +24,7 @@
 \graphicspath{{./figures/}}
 
 \newcommand{\pf}{p_{\mathrm{F}}}
-\newcommand{\vf}{p_{\mathrm{F}}}
+\newcommand{\vf}{v_{\mathrm{F}}}
 \newcommand{\corr}{\mu^\ast}
 \DeclareMathOperator{\sgn}{sgn}
 
@@ -87,7 +87,7 @@ where
 Begin with the integral over $k_0$, by collecting terms in each denominator into $\eta_1$ and $\eta_2$ so that
 \begin{align}
 	& 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[4]{k}}{\left(2\pi\right)^4} \frac{a}{k_0 + \eta_1 + i \delta s(\vec{k})} \frac{a}{- k_0 + \eta_2 + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})} \\
-	&= 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^4} \int \dd{k_0} \frac{a}{k_0 + \eta_1 + i \delta s(\vec{k})} \frac{a}{ - k_0 + \eta_2 + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})} \\
+	&= 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^4} \int \dd{k_0} \frac{a}{k_0 + \eta_1 + i \delta s(\vec{k})} \frac{a}{ - k_0 + \eta_2 + i \delta s(\vec{p_1} + \vec{p_2} - \vec{k})}
 \end{align}
 
 The $k_0$ integral can be done in closed form;
@@ -102,7 +102,16 @@ so our diagram becomes
 \begin{align}
 	&= - 2 i \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^4} \sigma 2 i \pi \frac{a^2}{\eta_1 + \eta_2 + 2 i \delta \sigma} \\
 	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{\eta_1 + \eta_2 + 2 i \delta \sigma} \\
-	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{ - \epsilon(\vec{k}) + \mu + \corr + \omega_1 + \omega_2 - \epsilon(\vec{k}) + \mu + \corr + 2 i \delta \sigma} \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{ - \epsilon(\vec{k}) + \mu + \corr + \omega_1 + \omega_2 - \epsilon(\vec{p_1} + \vec{p_2} - \vec{k}) + \mu + \corr + 2 i \delta \sigma} \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int \frac{\dd[3]{\vec{k}}}{\left(2\pi\right)^3} \sigma \frac{1}{- \epsilon(\vec{k}) - \epsilon(\vec{p_1} + \vec{p_2} - \vec{k}) + 2\mu + 2\corr + \omega_1 + \omega_2 + 2 i \delta \sigma} \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int_0^\infty \frac{\dd{k}}{\left(2\pi\right)^3} \int_0^{2 \pi} \dd{\phi} \int_{-1}^{1} \dd(\cos{\theta}) \frac{k^2 \sigma }{- \epsilon(\vec{k}) - \epsilon(\vec{p_1} + \vec{p_2} - \vec{k}) + 2\mu + 2\corr + \omega_1 + \omega_2 + 2 i \delta \sigma}  \\
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int_0^\infty \frac{\dd{k}}{\left(2\pi\right)^2} \int_{-1}^{1} \dd(\cos{\theta}) \frac{k^2 \sigma }{- \epsilon(\vec{k}) - \epsilon(\vec{p_1} + \vec{p_2} - \vec{k}) + 2\mu + 2\corr + \omega_1 + \omega_2 + 2 i \delta \sigma}
+\end{align}
+
+Sufficiently close to the Fermi surface, $\epsilon(\vec{k}) \approx \vf k \equiv \xi + \vf \pf$.
+Inserting this, we get
+\begin{align}
+	&= 2 a^2 \lambda^2 \left(\delta_{\alpha\gamma} \delta_{\beta\delta} -  \delta_{\alpha\delta} \delta_{\beta \gamma}\right)\int_0^\infty \frac{\dd{k}}{\left(2\pi\right)^2} \int_{-1}^{1} \dd(\cos{\theta}) \frac{k^2 \sigma }{-\left( \xi + \vf \pf \right) + 2\mu + 2\corr + \omega_1 + \omega_2 + 2 i \delta \sigma} \\
 \end{align}
 
 \section{Nam conductivity}
